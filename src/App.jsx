@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import Places from "./components/Places.jsx";
-import { AVAILABLE_PLACES } from "./data.js";
 import { AVAILABLE_BIKE_RACKS } from "./bike-rack.js";
 import { sortPlacesByDistance } from "./loc.js";
 import Modal from "./components/Modal.jsx";
@@ -19,15 +18,24 @@ function App() {
   const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      const sortedPlaces = sortPlacesByDistance(
-        AVAILABLE_BIKE_RACKS,
-        position.coords.latitude,
-        position.coords.longitude
-      );
-      setAvailablePlaces(sortedPlaces);
-    });
+    // Hardcoded coordinates for testing
+    const testLat = 37.7749; // Example latitude (e.g., San Francisco)
+    const testLon = -122.4194; // Example longitude (e.g., San Francisco)
+  
+    // Sort places based on the hardcoded location
+    const sortedPlaces = sortPlacesByDistance(
+      AVAILABLE_BIKE_RACKS,
+      testLat,
+      testLon
+    );
+  
+    // Get the 4 closest places
+    const closestFourPlaces = sortedPlaces.slice(0, 4); // Slice the first 4 items
+    
+    // Update state with the 4 closest places
+    setAvailablePlaces(closestFourPlaces);
   }, []);
+  
 
   function handleStartRemovePlace(id) {
     setModalIsOpen(true);
