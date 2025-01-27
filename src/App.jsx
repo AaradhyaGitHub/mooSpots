@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import Places from "./components/Places.jsx";
 import { AVAILABLE_PLACES } from "./data.js";
+import { AVAILABLE_BIKE_RACKS } from "./bike-rack.js";
 import { sortPlacesByDistance } from "./loc.js";
 import Modal from "./components/Modal.jsx";
 import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
@@ -8,7 +9,7 @@ import logoImg from "./assets/logo.png";
 
 const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
 const storedPlaces = storedIds.map((id) =>
-  AVAILABLE_PLACES.find((place) => place.id == id)
+AVAILABLE_BIKE_RACKS.find((place) => place.id == id)
 );
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const sortedPlaces = sortPlacesByDistance(
-        AVAILABLE_PLACES,
+        AVAILABLE_BIKE_RACKS,
         position.coords.latitude,
         position.coords.longitude
       );
@@ -42,7 +43,7 @@ function App() {
       if (prevPickedPlaces.some((place) => place.id === id)) {
         return prevPickedPlaces;
       }
-      const place = AVAILABLE_PLACES.find((place) => place.id === id);
+      const place = AVAILABLE_BIKE_RACKS.find((place) => place.id === id);
       return [place, ...prevPickedPlaces];
     });
     const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
