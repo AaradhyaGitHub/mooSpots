@@ -19,6 +19,7 @@ function App() {
 
   useEffect(() => {
     // Hardcoded coordinates for testing
+     // Hardcoded coordinates for testing
     const testLat = 38.541827; // Example latitude (e.g., San Francisco)
     const testLon = -121.748554; // Example longitude (e.g., San Francisco)
 
