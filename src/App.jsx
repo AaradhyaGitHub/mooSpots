@@ -19,9 +19,11 @@ function App() {
 
   useEffect(() => {
     // Hardcoded coordinates for testing
-    const testLat = 37.7749; // Example latitude (e.g., San Francisco)
-    const testLon = -122.4194; // Example longitude (e.g., San Francisco)
-  
+    const testLat = 38.541827; // Example latitude (e.g., San Francisco)
+    const testLon = -121.748554; // Example longitude (e.g., San Francisco)
+
+
+
     // Sort places based on the hardcoded location
     const sortedPlaces = sortPlacesByDistance(
       AVAILABLE_BIKE_RACKS,
@@ -86,19 +88,16 @@ function App() {
 
       <header>
         <img src={logoImg} alt="Stylized globe" />
-        <h1>PlacePicker</h1>
+        <h1>Moo-ve Over, Bikes</h1>
         <p>
-          Create your personal collection of places you would like to visit or
-          you have visited.
+        Can’t find a bike rack in Davis? 
+        </p>
+        <p>
+        Did you try looking?
         </p>
       </header>
       <main>
-        <Places
-          title="I'd like to visit ..."
-          fallbackText={"Select the places you would like to visit below."}
-          places={pickedPlaces}
-          onSelectPlace={handleStartRemovePlace}
-        />
+      
         <Places
           title="Available Places"
           places={availablePlaces}
