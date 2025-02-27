@@ -4,7 +4,7 @@ import { AVAILABLE_BIKE_RACKS } from "./bike-rack.js";
 import { sortPlacesByDistance } from "./loc.js";
 import Modal from "./components/Modal.jsx";
 import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
-import logoImg from "./assets/logo.png";
+import logoImg from "/logo2.jpg";
 
 const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
 const storedPlaces = storedIds.map((id) =>
