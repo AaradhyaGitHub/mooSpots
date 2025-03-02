@@ -13,8 +13,11 @@ export default function Places({
         <ul className="places">
           {places.map((place) => (
             <li key={place.id} className="place-item">
+              {
+                console.log(`Latitude: ${place.lat}, Longitude: ${place.lon}`)
+              }
               <div className="place-info">
-                <h1>🚲 {place.title}</h1>
+                <h1>Type: {place.title}</h1>
                 <div>
                   <h1>
                     📍 Distance:{" "}
