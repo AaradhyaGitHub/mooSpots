@@ -24,7 +24,7 @@ export default function Places({
                   </h1>
                 </div>
               </div>
-              <button onClick={() => onNavigate(places.lon, places.lat)}>
+              <button onClick={() => onNavigate(place.lat, place.lon)}>
                 Navigate →
               </button>
             </li>

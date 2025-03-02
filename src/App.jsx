@@ -13,6 +13,8 @@ const storedPlaces = storedIds.map((id) =>
 );
 
 function App() {
+  const positionRef = useRef({ lat: 0, lon: 0 }); // Holds onto position
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const selectedPlace = useRef();
   const [availablePlaces, setAvailablePlaces] = useState([]);
@@ -58,10 +60,16 @@ function App() {
     );
   }, []);
 
+
   function handleSearchInitiation() {
     console.log("clicked");
     setSearchInitiation(true);
     navigator.geolocation.getCurrentPosition((position) => {
+      positionRef.current = {
+        lat: position.coords.latitude,
+        lon: position.coords.longitude
+      }
+   
       const sortedPlaces = sortPlacesByDistance(
         AVAILABLE_BIKE_RACKS,
         position.coords.latitude,
@@ -73,6 +81,14 @@ function App() {
       setAvailablePlaces(closestFourPlaces);
     });
   }
+
+  const handleNavigatePlace = (targetLat, targetLon) => {
+
+    
+    // Construct the URL
+    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${positionRef.current.lat},${positionRef.current.lon}&destination=${targetLat},${targetLon}&travelmode=bicycling`;
+    console.log("Generated Google Maps URL: ", googleMapsUrl); // Debugging
+  };
 
   return (
     <>
@@ -95,6 +111,7 @@ function App() {
             places={availablePlaces}
             fallbackText="Mooooooving through the map to find parking..."
             onSelectPlace={handleSelectPlace}
+            onNavigate={handleNavigatePlace}
           />
         ) : (
           <Search handleSearchInitiation={handleSearchInitiation} />
