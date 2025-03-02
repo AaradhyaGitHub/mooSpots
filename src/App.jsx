@@ -91,7 +91,7 @@ function App() {
       </header>
       <main>
         <Places
-          title="Closest Bike Racks:"
+          title="📍 Nearest to You"
           places={availablePlaces}
           fallbackText="Sorting places by distance..."
           onSelectPlace={handleSelectPlace}

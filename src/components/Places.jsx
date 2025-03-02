@@ -8,11 +8,18 @@ export default function Places({ title, places, fallbackText, onSelectPlace }) {
           {places.map((place) => (
             <li key={place.id} className="place-item">
               <button onClick={() => onSelectPlace(place.id)}>
-                <h1>{place.title}</h1>
-                <h1>Distance: {place.distance.toFixed(3)} km</h1>
-                <h1>
-                  Lat: {place.lat}, Lon: {place.lon}
-                </h1>
+                <h1>🚲 {place.title}</h1>
+                <div>
+                  <h1>
+                    📍 Distance:
+                    <p>
+                      📏{" "}
+                      {place.distance < 1
+                        ? `${(place.distance * 1000).toFixed(1)} m`
+                        : `${place.distance.toFixed(2)} km`}
+                    </p>
+                  </h1>
+                </div>
               </button>
             </li>
           ))}
