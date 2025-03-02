@@ -5,6 +5,7 @@ import { sortPlacesByDistance } from "./loc.js";
 import Modal from "./components/Modal.jsx";
 import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import logoImg from "/logo8.png";
+import Search from "./components/Search.jsx";
 
 const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
 const storedPlaces = storedIds.map((id) =>
@@ -90,6 +91,7 @@ function App() {
         <p>Herd you can't find a bike rack</p>
       </header>
       <main>
+        <Search />
         <Places
           title="📍 Nearest to You"
           places={availablePlaces}
