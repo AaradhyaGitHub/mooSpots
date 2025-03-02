@@ -8,7 +8,7 @@ import logoImg from "/logo8.png";
 
 const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
 const storedPlaces = storedIds.map((id) =>
-AVAILABLE_BIKE_RACKS.find((place) => place.id == id)
+  AVAILABLE_BIKE_RACKS.find((place) => place.id == id)
 );
 
 function App() {
@@ -19,11 +19,9 @@ function App() {
 
   useEffect(() => {
     // Hardcoded coordinates for testing
-     // Hardcoded coordinates for testing
+    // Hardcoded coordinates for testing
     const testLat = 38.541827; // Example latitude (e.g., San Francisco)
     const testLon = -121.748554; // Example longitude (e.g., San Francisco)
-
-
 
     // Sort places based on the hardcoded location
     const sortedPlaces = sortPlacesByDistance(
@@ -31,14 +29,13 @@ function App() {
       testLat,
       testLon
     );
-  
+
     // Get the 4 closest places
     const closestFourPlaces = sortedPlaces.slice(0, 4); // Slice the first 4 items
-    
+
     // Update state with the 4 closest places
     setAvailablePlaces(closestFourPlaces);
   }, []);
-  
 
   function handleStartRemovePlace(id) {
     setModalIsOpen(true);
@@ -89,18 +86,12 @@ function App() {
 
       <header>
         <img src={logoImg} alt="Stylized globe" />
-        <h1>Moo-ve Over, Bikes</h1>
-        <p>
-        Can’t find a bike rack in Davis? 
-        </p>
-        <p>
-        Did you try looking?
-        </p>
+        <h1>mooSpots</h1>
+        <p>Herd you can't find a bike rack</p>
       </header>
       <main>
-      
         <Places
-          title="Available Places"
+          title="Closest Bike Racks:"
           places={availablePlaces}
           fallbackText="Sorting places by distance..."
           onSelectPlace={handleSelectPlace}

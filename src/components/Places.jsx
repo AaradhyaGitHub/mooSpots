@@ -8,13 +8,14 @@ export default function Places({ title, places, fallbackText, onSelectPlace }) {
           {places.map((place) => (
             <li key={place.id} className="place-item">
               <button onClick={() => onSelectPlace(place.id)}>
-                <img src={place.image.src} alt={place.image.alt} />
-                <h3>{place.title}</h3>
+                <h1>{place.title}</h1>
                 {/* Display the latitude and longitude */}
-                <p>Lat: {place.lat}, Lon: {place.lon}</p>
-                {
-                  console.log(`The Latitude is: ${place.lat}. The Longitute is ${place.lon}`)
-                }
+                <h1>
+                  Lat: {place.lat}, Lon: {place.lon}
+                </h1>
+                {console.log(
+                  `The Latitude is: ${place.lat}. The Longitute is ${place.lon}`
+                )}
               </button>
             </li>
           ))}
