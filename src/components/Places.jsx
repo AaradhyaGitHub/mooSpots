@@ -9,13 +9,10 @@ export default function Places({ title, places, fallbackText, onSelectPlace }) {
             <li key={place.id} className="place-item">
               <button onClick={() => onSelectPlace(place.id)}>
                 <h1>{place.title}</h1>
-                {/* Display the latitude and longitude */}
+                <h1>Distance: {place.distance.toFixed(3)} km</h1>
                 <h1>
                   Lat: {place.lat}, Lon: {place.lon}
                 </h1>
-                {console.log(
-                  `The Latitude is: ${place.lat}. The Longitute is ${place.lon}`
-                )}
               </button>
             </li>
           ))}
