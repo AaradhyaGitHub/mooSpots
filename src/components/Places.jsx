@@ -1,3 +1,12 @@
+import {
+  Lock,
+  MapIcon,
+  MapPin,
+  Navigation,
+  Bike,
+  LandPlot,
+  CircleParking
+} from "lucide-react";
 export default function Places({
   title,
   places,
@@ -13,22 +22,30 @@ export default function Places({
         <ul className="places">
           {places.map((place) => (
             <li key={place.id} className="place-item">
-              {
-                console.log(`Latitude: ${place.lat}, Longitude: ${place.lon}`)
-              }
+              {console.log(`Latitude: ${place.lat}, Longitude: ${place.lon}`)}
               <div className="place-info">
-                <h1>Type: {place.title}</h1>
-                <div>
-                  <h1>
-                    📍 Distance:{" "}
-                    {place.distance < 1
-                      ? `${(place.distance * 1000).toFixed(1)} m`
-                      : `${place.distance.toFixed(2)} km`}
-                  </h1>
-                </div>
+                <h1>
+                  <Bike />
+                  {place.title}
+                  <p>Detected!</p>
+                </h1>
+                <h1>
+                  <CircleParking />
+                  <p>Capacity: </p>
+
+                  {place.rack_spaces}
+                </h1>
+
+                <h1>
+                  <LandPlot />
+                  <p>Distance: </p>
+                  {place.distance < 1
+                    ? `${(place.distance * 1000).toFixed(1)} m`
+                    : `${place.distance.toFixed(2)} km`}
+                </h1>
               </div>
               <button onClick={() => onNavigate(place.lat, place.lon)}>
-                Navigate →
+                <Navigation size={15} /> Navigate
               </button>
             </li>
           ))}

@@ -113,7 +113,6 @@ header p {
   width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 1.25rem;
-  cursor: pointer;
   color: white;
   text-align: left;
   display: flex;
@@ -130,19 +129,33 @@ header p {
 
 /* Navigation button - now outside the tile */
 .place-item button {
+  /* Keep all your existing properties */
   width: 30%;
   border: none;
-  background: #00396F; /* Darker UC Davis blue */
-  padding: 0.75rem;
+  background: #ffbf00; /* UC Davis gold */
+  padding: 0.4rem;
   cursor: pointer;
-  color: #FFBF00; /* UC Davis gold */
+  color: #000000; 
   font-weight: 500;
   letter-spacing: 0.03em;
-  border-radius: 20px; /* Rounded corners for separated button */
+  border-radius: 30px;
   transition: background 0.2s ease, transform 0.2s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  
+  /* Add these properties */
+  line-height: 2; /* Normalize line height */
+  text-align: center; /* Center text */
 }
 
+/* Also add this to specifically target the SVG */
+.place-item button svg {
+  display: block; /* Remove any default inline spacing */
+  flex-shrink: 0; /* Prevent the SVG from shrinking */
+}
 /* Hover effect for navigate button */
 .place-item button:hover {
   background: #FFD24C; /* Even darker UC Davis blue */
