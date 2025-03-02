@@ -4,7 +4,7 @@
   --primary-blue: #022851;
   --secondary-blue: #003366;
   --dark-blue: #001f3f;
-  --gold: #ffbf00;
+  --gold: rgb(255, 191, 0);
   --gold-hover: #e6a700;
   --text-primary: #cfe7ed;
   --text-secondary: #a3b8c2;
@@ -124,14 +124,13 @@ header p {
 
 /* Hover effect for main tile */
 .place-info:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 24px rgba(255, 191, 0, 0.2);
+  border-color: rgba(0, 0, 0, 0.2);
 }
 
 /* Navigation button - now outside the tile */
 .place-item button {
-  width: 100%;
+  width: 30%;
   border: none;
   background: #00396F; /* Darker UC Davis blue */
   padding: 0.75rem;
@@ -139,15 +138,15 @@ header p {
   color: #FFBF00; /* UC Davis gold */
   font-weight: 500;
   letter-spacing: 0.03em;
-  border-radius: 8px; /* Rounded corners for separated button */
+  border-radius: 20px; /* Rounded corners for separated button */
   transition: background 0.2s ease, transform 0.2s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Hover effect for navigate button */
 .place-item button:hover {
-  background: #002F5D; /* Even darker UC Davis blue */
-  color: #FFD24C; /* Brighter gold on hover */
+  background: #FFD24C; /* Even darker UC Davis blue */
+  color: #000000; /* Brighter gold on hover */
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
@@ -212,7 +211,7 @@ header p {
   cursor: pointer;
   font-size: clamp(0.875rem, 1.5vw, 1rem);
   padding: 0.6rem 1.5rem;
-  border-radius: 6px;
+  border-radius: 0px;
   background: var(--gold);
   color: var(--primary-blue);
   font-weight: bold;
