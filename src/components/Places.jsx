@@ -7,6 +7,8 @@ import {
   LandPlot,
   CircleParking
 } from "lucide-react";
+
+import '../components/places.css'
 export default function Places({
   title,
   places,
@@ -24,28 +26,36 @@ export default function Places({
             <li key={place.id} className="place-item">
               {console.log(`Latitude: ${place.lat}, Longitude: ${place.lon}`)}
               <div className="place-info">
-                <h1>
+                {/* Rack Title Section */}
+                <div className="rack-title">
                   <Bike />
-                  {place.title}
-                  <p>Detected!</p>
-                </h1>
-                <h1>
-                  <CircleParking />
-                  <p>Capacity: </p>
-
-                  {place.rack_spaces}
-                </h1>
-
-                <h1>
-                  <LandPlot />
-                  <p>Distance: </p>
-                  {place.distance < 1
-                    ? `${(place.distance * 1000).toFixed(1)} m`
-                    : `${place.distance.toFixed(2)} km`}
-                </h1>
+                  <h2>{place.title}</h2>
+                </div>
+                
+                {/* Info Container */}
+                <div className="info-container">
+                  {/* Capacity Info */}
+                  <div className="info-row">
+                    <CircleParking />
+                    <span className="label">Capacity:</span>
+                    <span className="value">{place.rack_spaces}</span>
+                  </div>
+                  
+                  {/* Distance Info */}
+                  <div className="info-row">
+                    <LandPlot />
+                    <span className="label">Distance:</span>
+                    <span className="value">
+                      {place.distance < 1
+                        ? `${(place.distance * 1000).toFixed(1)} m`
+                        : `${place.distance.toFixed(1)} km`}
+                    </span>
+                  </div>
+                </div>
               </div>
+              
               <button onClick={() => onNavigate(place.lat, place.lon)}>
-                <Navigation size={15} /> Navigate
+                <Navigation size={16} /> Navigate
               </button>
             </li>
           ))}
