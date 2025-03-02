@@ -1,4 +1,10 @@
-export default function Places({ title, places, fallbackText, onSelectPlace }) {
+export default function Places({
+  title,
+  places,
+  fallbackText,
+  onSelectPlace,
+  onNavigate
+}) {
   return (
     <section className="places-category">
       <h2>{title}</h2>
@@ -18,7 +24,7 @@ export default function Places({ title, places, fallbackText, onSelectPlace }) {
                   </h1>
                 </div>
               </div>
-              <button onClick={() => onSelectPlace(place.id)}>
+              <button onClick={() => onNavigate(places.lon, places.lat)}>
                 Navigate →
               </button>
             </li>
