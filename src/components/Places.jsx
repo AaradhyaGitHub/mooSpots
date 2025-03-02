@@ -7,7 +7,7 @@ export default function Places({ title, places, fallbackText, onSelectPlace }) {
         <ul className="places">
           {places.map((place) => (
             <li key={place.id} className="place-item">
-              <button onClick={() => onSelectPlace(place.id)}>
+              <div className="place-info" onClick={() => onSelectPlace(place.id)}>
                 <h1>🚲 {place.title}</h1>
                 <div>
                   <h1>
@@ -17,7 +17,7 @@ export default function Places({ title, places, fallbackText, onSelectPlace }) {
                       : `${place.distance.toFixed(2)} km`}
                   </h1>
                 </div>
-              </button>
+              </div>
               <button>Navigate</button>
             </li>
           ))}

@@ -16,27 +16,9 @@ function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const selectedPlace = useRef();
   const [availablePlaces, setAvailablePlaces] = useState([]);
+
   const [pickedPlaces, setPickedPlaces] = useState(storedPlaces);
-
-  useEffect(() => {
-    // Hardcoded coordinates for testing
-    // Hardcoded coordinates for testing
-    const testLat = 38.541827; // Example latitude (e.g., San Francisco)
-    const testLon = -121.748554; // Example longitude (e.g., San Francisco)
-
-    // Sort places based on the hardcoded location
-    const sortedPlaces = sortPlacesByDistance(
-      AVAILABLE_BIKE_RACKS,
-      testLat,
-      testLon
-    );
-
-    // Get the 4 closest places
-    const closestFourPlaces = sortedPlaces.slice(0, 4); // Slice the first 4 items
-
-    // Update state with the 4 closest places
-    setAvailablePlaces(closestFourPlaces);
-  }, []);
+  const [searchInitiation, setSearchInitiation] = useState(false);
 
   function handleStartRemovePlace(id) {
     setModalIsOpen(true);
@@ -76,6 +58,22 @@ function App() {
     );
   }, []);
 
+  function handleSearchInitiation() {
+    console.log("clicked");
+    setSearchInitiation(true);
+    navigator.geolocation.getCurrentPosition((position) => {
+      const sortedPlaces = sortPlacesByDistance(
+        AVAILABLE_BIKE_RACKS,
+        position.coords.latitude,
+        position.coords.longitude
+      );
+      // Get the 4 closest places
+      const closestFourPlaces = sortedPlaces.slice(0, 6); // Slice the first 4 items
+      // Update state with the 4 closest places
+      setAvailablePlaces(closestFourPlaces);
+    });
+  }
+
   return (
     <>
       <Modal open={modalIsOpen} onClose={handleStopRemovePlace}>
@@ -91,13 +89,16 @@ function App() {
         <p>Herd you can't find a bike rack</p>
       </header>
       <main>
-        <Search />
-        <Places
-          title="📍 Nearest to You"
-          places={availablePlaces}
-          fallbackText="Sorting places by distance..."
-          onSelectPlace={handleSelectPlace}
-        />
+        {searchInitiation ? (
+          <Places
+            title="📍 Nearest to You"
+            places={availablePlaces}
+            fallbackText="Mooooooving through the map to find parking..."
+            onSelectPlace={handleSelectPlace}
+          />
+        ) : (
+          <Search handleSearchInitiation={handleSearchInitiation} />
+        )}
       </main>
     </>
   );

@@ -83,7 +83,7 @@ const SearchDescription = styled.p`
 `;
 
 // The Search component using styled components
-export default function Search() {
+export default function Search({handleSearchInitiation}) {
   return (
     <SearchContainer>
       <SearchTitle>Find Your Spot</SearchTitle>
@@ -91,7 +91,7 @@ export default function Search() {
         Quickly locate nearby bike racks with ease.
       </SearchDescription>
       <p>
-        <SearchButton>
+        <SearchButton onClick={handleSearchInitiation}>
           <ButtonText>🔍 Locate</ButtonText>
         </SearchButton>
       </p>
