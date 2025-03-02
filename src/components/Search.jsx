@@ -88,7 +88,7 @@ export default function Search({handleSearchInitiation}) {
     <SearchContainer>
       <SearchTitle>Find Your Spot</SearchTitle>
       <SearchDescription>
-        Quickly locate nearby bike racks with ease.
+        Quickly locate nearby bike racks in UC Davis
       </SearchDescription>
       <p>
         <SearchButton onClick={handleSearchInitiation}>
