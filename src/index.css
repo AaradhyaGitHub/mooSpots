@@ -109,3 +109,58 @@ header p {
     grid-template-columns: 1fr;
   }
 }
+
+
+.dev-panel {
+  background-color: #005e02;
+  border: 2px dashed #ffffff;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px auto;
+  max-width: 90%;
+  font-family: monospace;
+}
+
+.dev-panel h3 {
+  margin-top: 0;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.toggle-container {
+  margin-bottom: 12px;
+}
+
+.toggle-container label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.test-location-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.test-location-selector select {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.test-search-btn {
+  background-color: #ffee03;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.test-search-btn:hover {
+  background-color: #45a049;
+}

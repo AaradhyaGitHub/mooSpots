@@ -6,11 +6,15 @@ import Modal from "./components/Modal.jsx";
 import DeleteConfirmation from "./components/DeleteConfirmation.jsx";
 import logoImg from "/logo8.png";
 import Search from "./components/Search.jsx";
+import TEST_LOCATIONS from "./test-coords.js";
 
 const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
 const storedPlaces = storedIds.map((id) =>
   AVAILABLE_BIKE_RACKS.find((place) => place.id == id)
 );
+
+// Test coordinates - replace with coordinates near your bike racks
+
 
 function App() {
   const positionRef = useRef({ lat: 0, lon: 0 }); // Holds onto position
@@ -22,6 +26,10 @@ function App() {
   const [searchInitiation, setSearchInitiation] = useState(false);
   const [locationStatus, setLocationStatus] = useState("idle"); // 'idle', 'loading', 'success', 'error'
   const [errorMessage, setErrorMessage] = useState("");
+  
+  // Test mode state
+  const [useTestLocation, setUseTestLocation] = useState(false);
+  const [selectedTestLocation, setSelectedTestLocation] = useState(0);
 
   function handleStartRemovePlace(id) {
     setModalIsOpen(true);
@@ -61,10 +69,43 @@ function App() {
     );
   }, []);
 
+  // Toggle test mode
+  function toggleTestMode() {
+    setUseTestLocation(prev => !prev);
+  }
+
+  // Handle test location change
+  function handleTestLocationChange(e) {
+    setSelectedTestLocation(Number(e.target.value));
+  }
+
   function handleSearchInitiation() {
-  
     setSearchInitiation(true);
     setLocationStatus("loading");
+    
+    // If in test mode, use test coordinates instead of getting real location
+    if (useTestLocation) {
+      setTimeout(() => {
+        const testLocation = TEST_LOCATIONS[selectedTestLocation];
+        positionRef.current = {
+          lat: testLocation.lat,
+          lon: testLocation.lon
+        };
+        
+        const sortedPlaces = sortPlacesByDistance(
+          AVAILABLE_BIKE_RACKS,
+          testLocation.lat,
+          testLocation.lon
+        );
+        // Get the closest places
+        const closestPlaces = sortedPlaces.slice(0, 6);
+        // Update state with the closest places
+        setAvailablePlaces(closestPlaces);
+        setLocationStatus("success");
+      }, 1000); // Fake delay to simulate geolocation API
+      
+      return;
+    }
     
     // Check if geolocation is supported by the browser
     if (!navigator.geolocation) {
@@ -75,12 +116,10 @@ function App() {
     
     // Success callback
     const successCallback = (position) => {
-   
       positionRef.current = {
         lat: position.coords.latitude,
         lon: position.coords.longitude
       };
-     
       
       const sortedPlaces = sortPlacesByDistance(
         AVAILABLE_BIKE_RACKS,
@@ -91,7 +130,6 @@ function App() {
       const closestPlaces = sortedPlaces.slice(0, 6);
       // Update state with the closest places
       setAvailablePlaces(closestPlaces);
-         console.log("here");
       setLocationStatus("success");
     };
     
@@ -133,7 +171,6 @@ function App() {
   const handleNavigatePlace = (targetLat, targetLon) => {
     // Construct the URL
     const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${positionRef.current.lat},${positionRef.current.lon}&destination=${targetLat},${targetLon}&travelmode=bicycling`;
-    // console.log("Generated Google Maps URL: ", googleMapsUrl);
     
     // Open in a new tab
     window.open(googleMapsUrl, '_blank');
@@ -180,6 +217,40 @@ function App() {
     }
   };
 
+  // Create a dev panel component for testing
+  const DevPanel = () => {
+    return (
+      <div className="dev-panel">
+        <h3>Dev Testing Panel</h3>
+        <div className="toggle-container">
+          <label>
+            <input
+              type="checkbox"
+              checked={useTestLocation}
+              onChange={toggleTestMode}
+            />
+            Use Test Location
+          </label>
+        </div>
+        
+        {useTestLocation && (
+          <div className="test-location-selector">
+            <select value={selectedTestLocation} onChange={handleTestLocationChange}>
+              {TEST_LOCATIONS.map((loc, index) => (
+                <option key={index} value={index}>
+                  {loc.label} ({loc.lat.toFixed(4)}, {loc.lon.toFixed(4)})
+                </option>
+              ))}
+            </select>
+            <button onClick={handleSearchInitiation} className="test-search-btn">
+              Test Search with Selected Location
+            </button>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <>
       <Modal open={modalIsOpen} onClose={handleStopRemovePlace}>
@@ -194,6 +265,10 @@ function App() {
         <h1>mooSpots</h1>
         <p>Herd you can't find a bike rack</p>
       </header>
+      
+      {/* Dev Panel - only visible in development */}
+      {process.env.NODE_ENV !== 'production' && <DevPanel />}
+      
       <main>
         {renderContent()}
       </main>
