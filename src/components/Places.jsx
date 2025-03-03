@@ -5,7 +5,8 @@ import {
   Navigation,
   Bike,
   LandPlot,
-  CircleParking
+  CircleParking,
+  RefreshCcw
 } from "lucide-react";
 
 import '../components/places.css'
@@ -19,6 +20,9 @@ export default function Places({
   return (
     <section className="places-category">
       <h2>{title}</h2>
+      <button className="refresh-btn">
+        <RefreshCcw />REFRESH
+      </button>
       {places.length === 0 && <p className="fallback-text">{fallbackText}</p>}
       {places.length > 0 && (
         <ul className="places">
