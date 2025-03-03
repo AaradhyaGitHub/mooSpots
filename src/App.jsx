@@ -62,7 +62,7 @@ function App() {
   }, []);
 
   function handleSearchInitiation() {
-    console.log("clicked");
+  
     setSearchInitiation(true);
     setLocationStatus("loading");
     
@@ -75,10 +75,12 @@ function App() {
     
     // Success callback
     const successCallback = (position) => {
+   
       positionRef.current = {
         lat: position.coords.latitude,
         lon: position.coords.longitude
       };
+     
       
       const sortedPlaces = sortPlacesByDistance(
         AVAILABLE_BIKE_RACKS,
@@ -89,6 +91,7 @@ function App() {
       const closestPlaces = sortedPlaces.slice(0, 6);
       // Update state with the closest places
       setAvailablePlaces(closestPlaces);
+         console.log("here");
       setLocationStatus("success");
     };
     
@@ -130,7 +133,7 @@ function App() {
   const handleNavigatePlace = (targetLat, targetLon) => {
     // Construct the URL
     const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${positionRef.current.lat},${positionRef.current.lon}&destination=${targetLat},${targetLon}&travelmode=bicycling`;
-    console.log("Generated Google Maps URL: ", googleMapsUrl);
+    // console.log("Generated Google Maps URL: ", googleMapsUrl);
     
     // Open in a new tab
     window.open(googleMapsUrl, '_blank');
@@ -169,6 +172,7 @@ function App() {
           fallbackText="No bike racks found."
           onSelectPlace={handleSelectPlace}
           onNavigate={handleNavigatePlace}
+          onRefresh={handleSearchInitiation}
         />;
         
       default:

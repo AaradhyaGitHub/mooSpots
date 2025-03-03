@@ -1,7 +1,4 @@
 import {
-  Lock,
-  MapIcon,
-  MapPin,
   Navigation,
   Bike,
   LandPlot,
@@ -15,12 +12,13 @@ export default function Places({
   places,
   fallbackText,
   onSelectPlace,
-  onNavigate
+  onNavigate,
+  onRefresh
 }) {
   return (
     <section className="places-category">
       <h2>{title}</h2>
-      <button className="refresh-btn">
+      <button className="refresh-btn" onClick={onRefresh}>
         <RefreshCcw />REFRESH
       </button>
       {places.length === 0 && <p className="fallback-text">{fallbackText}</p>}
@@ -28,7 +26,6 @@ export default function Places({
         <ul className="places">
           {places.map((place) => (
             <li key={place.id} className="place-item">
-              {console.log(`Latitude: ${place.lat}, Longitude: ${place.lon}`)}
               <div className="place-info">
                 {/* Rack Title Section */}
                 <div className="rack-title">
