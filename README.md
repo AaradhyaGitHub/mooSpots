@@ -68,8 +68,4 @@ Expansion beyond Davis (jk, Davis is the bike capital of the world)
 💙 With Love, For Aggies
 This app was made with a whole lotta love (and just a little sarcasm) for the UC Davis community. Because let’s be honest — between navigating construction, cows, and overdue essays — finding a bike rack shouldn't be a crisis.
 
-Here’s to late mornings, long rides, and landing that perfect parking spot two feet from your lecture hall.
-
-Stay caffeinated. Stay pedaling. And remember: If it’s got two wheels and a bell, it belongs in Davis.
-
 Built by a student, for students. Powered by javaScript-fueled determination, a borderline unhealthy love of React and a passionate hatred for CSS.
