@@ -5,6 +5,7 @@
 [Live Demo](https://moospots.vercel.app)
 
 mooSpots is a location-based web app that helps UC Davis students find the *nearest* bike racks. Not the best ones. Not the shaded ones. Just the *closest*. 
+
 Was this app necessary? Absolutely not.  
 Did I build it anyway? You bet.
 
