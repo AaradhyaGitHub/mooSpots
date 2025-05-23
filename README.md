@@ -13,7 +13,6 @@ Did I build it anyway? You bet.
 
 It started as a self-taught React journey, where I was messing around with geolocation tutorials. Then I thought, *"Hey, what if I made something completely unnecessary but oddly useful — like a bike rack finder?"* So here we are.
 
-mooSpots is basically what happens when a coding hobby meets campus chaos.
 
 ## 🛠️ Built With
 
