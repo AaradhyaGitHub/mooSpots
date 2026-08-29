@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Design handoff artifacts
+*.zip
+_handoff_tmp
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

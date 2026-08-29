@@ -16,20 +16,22 @@ It started as a self-taught React journey, where I was messing around with geolo
 
 ## 🛠️ Built With
 
-- **React.js** (with Hooks like `useState`, `useEffect`, `useRef`, and `useCallback`)
+- **React.js** (with Hooks like `useState`, `useEffect`, `useRef`, and a custom `useNearestRacks`)
+- **Leaflet** – an interactive map that frames your closest racks with numbered pins
 - **Browser Geolocation API** – for that Big Brother vibe
 - **Haversine Formula** – math stuff to measure distances
-- **Styled Components** – to make it pretty
+- **Plain CSS with design tokens** – warm palette, UC Davis blue + gold, no framework
 - **Vite** – fast dev builds because life is short
 - **Node.js** – just vibing in the background
 
 ## 📦 Features
 
 - Automatically finds your current location — assuming your browser isn't shy
-- Calculates the closest bike racks using real math™
+- Ranks the closest bike racks using real math™ and shows them on a live map
+- Numbered pins + result cards with walk/ride estimates and a one-tap Navigate
 - Refresh button to re-scan when you panic-locate your next class
-- Clean UI designed for minimal decision-making under stress
-- Mobile-friendly for mid-sprint phone checks
+- "Use a campus spot" fallback so you can browse without sharing location
+- Clean, mobile-friendly UI designed for minimal decision-making under stress
 
 ## 🧠 Lessons Learned
 
@@ -58,7 +60,7 @@ npm run dev
 🔮 Future Features
 Show bike rack availability (one day... when I make friends with IoT sensors)
 
-Map view with fancy pins
+Routed distances instead of straight-line (if a routing API is ever worth it)
 
 Favorite rack saving (for creatures of habit)
 

@@ -1,0 +1,43 @@
+/* mooSpots design tokens.
+   Warm neutral ground from the Organic system; UC Davis blue and gold are the
+   only brand literals. Change the look here, not in the components. */
+:root {
+  /* Brand */
+  --brand-blue: #022851;
+  --brand-blue-hover: #0a3f74;
+  --brand-blue-tint: #e8eff6;
+  --brand-blue-border: #c9d8e8;
+  --brand-gold: #ffbf00;
+  --brand-gold-hover: #ffcd33;
+  --brand-gold-tint: #fff6de;
+  --brand-gold-ink: #6b4e00;
+  --brand-gold-soft: #ffe9ad;
+
+  /* Ground */
+  --color-bg: #f5ead8;
+  --color-surface: #f9f4ed;
+  --color-neutral-100: #f9f4ed;
+  --color-neutral-300: #e3dbcd;
+  --color-neutral-600: #6f6659;
+  --color-neutral-700: #554e44;
+  --color-text: #201e1d;
+
+  /* Sage second accent */
+  --color-sage-100: #f0fae1;
+  --color-sage-ink: #56633f;
+
+  /* Type */
+  --font-display: 'Caprasimo', system-ui, sans-serif;
+  --font-body: 'Figtree', system-ui, sans-serif;
+
+  /* Radii */
+  --radius-map: 28px;
+  --radius-card: 24px;
+  --radius-thumb: 22px;
+  --radius-pill: 999px;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(46, 43, 37, 0.14);
+  --shadow-md: 0 3px 10px rgba(46, 43, 37, 0.16);
+  --shadow-lg: 0 2px 8px rgba(46, 43, 37, 0.22);
+}
