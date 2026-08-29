@@ -119,6 +119,44 @@ a:hover { color: var(--brand-blue-hover); }
 /* Wash the basemap back so it sits under the UI rather than competing. */
 .leaflet-tile-pane { filter: saturate(0.62) contrast(0.92) brightness(1.05); }
 
+/* Rack popup -------------------------------------------------------------- */
+.leaflet-popup-content-wrapper {
+  background: var(--color-neutral-100);
+  color: var(--color-text);
+  border-radius: 16px;
+  box-shadow: var(--shadow-md);
+}
+.leaflet-popup-content { margin: 12px 13px; min-width: 178px; line-height: 1.4; }
+.leaflet-popup-content p { margin: 0; }
+.leaflet-popup-tip { background: var(--color-neutral-100); box-shadow: var(--shadow-md); }
+.leaflet-popup-close-button { display: none; }
+
+.moo-popup__head { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
+.moo-popup__rank {
+  flex: none;
+  width: 24px; height: 24px;
+  border-radius: var(--radius-pill);
+  background: var(--brand-gold);
+  color: var(--brand-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.78rem;
+}
+.moo-popup__meta { min-width: 0; }
+.moo-popup__title { font-size: 0.92rem; font-weight: 700; line-height: 1.2; }
+.moo-popup__sub { font-size: 0.74rem; color: var(--color-neutral-600); margin-top: 1px; }
+.moo-popup__distance {
+  margin-left: auto;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: var(--brand-blue);
+  line-height: 1;
+}
+.moo-popup__nav { min-height: 38px; font-size: 0.82rem; padding: 8px 14px; }
+
 /* Map pins ---------------------------------------------------------------- */
 .moo-pin-me {
   width: 18px; height: 18px;

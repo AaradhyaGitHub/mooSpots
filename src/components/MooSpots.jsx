@@ -5,6 +5,7 @@ import RackCard from './RackCard.jsx';
 import { RefreshIcon, CrosshairIcon } from './Icons.jsx';
 import { useNearestRacks } from '../hooks/useNearestRacks.js';
 import { CAMPUS_CENTER } from '../lib/geo.js';
+import { formatDistance, navigationUrl } from '../lib/format.js';
 import '../styles/tokens.css';
 import '../styles/moospots.css';
 
@@ -37,6 +38,45 @@ export default function MooSpots({ racks = [], resultCount = 6, logoSrc = '/logo
   const selectRef = useRef(setSelectedId);
   selectRef.current = setSelectedId;
 
+  // Read-only latest values for use inside marker callbacks and popup content.
+  const positionRef = useRef(position);
+  positionRef.current = position;
+  const selectedIdRef = useRef(selectedId);
+  selectedIdRef.current = selectedId;
+
+  // A rack pin's popup: distance, spaces and a Navigate button. Built with the
+  // DOM so the button can carry a real click handler.
+  const buildPopup = (place, rank) => {
+    const el = document.createElement('div');
+    el.className = 'moo-popup';
+    const title = place.title || place.rack_type || 'Bike rack';
+    el.innerHTML =
+      '<div class="moo-popup__head">' +
+        '<span class="moo-popup__rank">' + rank + '</span>' +
+        '<div class="moo-popup__meta">' +
+          '<p class="moo-popup__title"></p>' +
+          '<p class="moo-popup__sub">' + (place.rack_spaces ?? '?') + ' spaces</p>' +
+        '</div>' +
+        '<span class="moo-popup__distance">' + formatDistance(place.distance) + '</span>' +
+      '</div>';
+    el.querySelector('.moo-popup__title').textContent = title;
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'moo-btn moo-btn--gold moo-btn--block moo-popup__nav';
+    btn.innerHTML =
+      '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" ' +
+      'stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<polygon points="3 11 22 2 13 21 11 13 3 11"></polygon></svg><span>Navigate</span>';
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const pos = positionRef.current;
+      if (pos) window.open(navigationUrl(pos, place), '_blank', 'noopener');
+    });
+    el.appendChild(btn);
+    return el;
+  };
+
   useEffect(() => {
     if (mapRef.current || !nodeRef.current) return;
     const map = L.map(nodeRef.current, { zoomControl: true, attributionControl: true })
@@ -49,11 +89,15 @@ export default function MooSpots({ racks = [], resultCount = 6, logoSrc = '/logo
     };
   }, []);
 
+  // Build the me-pin and one marker per rack. Not tied to selection, so an open
+  // popup survives a selection change (which only restyles the pins below).
+  // Each marker carries a bound popup; Leaflet opens it on click and closes it
+  // when you click the map, another pin, or anywhere outside the popup.
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
 
-    markersRef.current.forEach((m) => m.remove());
+    markersRef.current.forEach(({ marker }) => marker.remove());
     markersRef.current = [];
     if (meRef.current) {
       meRef.current.remove();
@@ -68,16 +112,31 @@ export default function MooSpots({ racks = [], resultCount = 6, logoSrc = '/logo
     }).addTo(map);
 
     places.forEach((p, i) => {
-      const selected = p.id === selectedId;
+      const selected = p.id === selectedIdRef.current;
       const marker = L.marker([p.lat, p.lon], {
         icon: rackIcon(i + 1, selected),
         zIndexOffset: selected ? 1200 : 600,
         keyboard: false
       }).addTo(map);
+      marker.bindPopup(buildPopup(p, i + 1), {
+        closeButton: false,
+        offset: [0, -6],
+        className: 'moo-popup-wrap',
+        autoPanPadding: [24, 24]
+      });
       marker.on('click', () => selectRef.current(p.id));
-      markersRef.current.push(marker);
+      markersRef.current.push({ id: p.id, marker });
     });
-  }, [places, selectedId, position]);
+  }, [places, position]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Reflect the current selection on the pins without rebuilding them.
+  useEffect(() => {
+    markersRef.current.forEach(({ id, marker }, i) => {
+      const selected = id === selectedId;
+      marker.setIcon(rackIcon(i + 1, selected));
+      marker.setZIndexOffset(selected ? 1200 : 600);
+    });
+  }, [selectedId, places]);
 
   // Frame the whole result set.
   //
