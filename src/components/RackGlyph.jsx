@@ -8,7 +8,11 @@ const GLYPHS = {
   'Varsity Rack': ['M3 20h18', 'M5 20l3-10 3 10', 'M13 20l3-10 3 10'],
   'Wave Rack': ['M3 20h18', 'M3 20a4.5 4.5 0 0 1 9 0 4.5 4.5 0 0 1 9 0'],
   'Concrete Pod': ['M3 20h18', 'M4 20a8 8 0 0 1 16 0', 'M9 20v-4', 'M15 20v-4'],
-  'Bike Locker': ['M3 20h18', 'M4 20V6h16v14', 'M12 6v14', 'M8 13h1.5', 'M14.5 13H16']
+  'Bike Locker': ['M3 20h18', 'M4 20V6h16v14', 'M12 6v14', 'M8 13h1.5', 'M14.5 13H16'],
+  'Inverted U': ['M3 20h18', 'M7 20v-8a5 5 0 0 1 10 0v8'],
+  'Bike Rail': ['M3 20h18', 'M3 12h18', 'M6 20v-8', 'M18 20v-8'],
+  'Low Rack': ['M3 20h18', 'M5 20v-5h14v5', 'M9.5 15v5', 'M14.5 15v5'],
+  'Park-rite Rack': ['M3 20h18', 'M5 20l4-9h6l4 9', 'M12 11v9']
 };
 
 const FALLBACK = [
@@ -17,7 +21,7 @@ const FALLBACK = [
   'M12 18V13l-3-3 4-3 2 3h2'
 ];
 
-export default function RackGlyph({ type, size = 42 }) {
+export default function RackGlyph({ type, size = 42, strokeWidth = 2.25 }) {
   const paths = GLYPHS[type] || FALLBACK;
   return (
     <svg
@@ -26,7 +30,7 @@ export default function RackGlyph({ type, size = 42 }) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2.25}
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"

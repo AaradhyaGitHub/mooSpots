@@ -16,8 +16,9 @@ It started as a self-taught React journey, where I was messing around with geolo
 
 ## 🛠️ Built With
 
-- **React.js** (with Hooks like `useState`, `useEffect`, `useRef`, and a custom `useNearestRacks`)
-- **Leaflet** – an interactive map that frames your closest racks with numbered pins
+- **React.js** (with Hooks like `useState`, `useEffect`, `useRef`, and custom `useMooSpots` / `useNavigation`)
+- **Leaflet** – the map, plus a radar-scan pin drop because why not
+- **OSRM on OpenStreetMap** – real walking and biking routes for turn-by-turn, no API key
 - **Browser Geolocation API** – for that Big Brother vibe
 - **Haversine Formula** – math stuff to measure distances
 - **Plain CSS with design tokens** – warm palette, UC Davis blue + gold, no framework
@@ -26,12 +27,22 @@ It started as a self-taught React journey, where I was messing around with geolo
 
 ## 📦 Features
 
-- Automatically finds your current location — assuming your browser isn't shy
-- Ranks the closest bike racks using real math™ and shows them on a live map
-- Numbered pins + result cards with walk/ride estimates and a one-tap Navigate
-- Refresh button to re-scan when you panic-locate your next class
-- "Use a campus spot" fallback so you can browse without sharing location
-- Clean, mobile-friendly UI designed for minimal decision-making under stress
+- **Parking spots, not 1,000 identical racks.** Racks are grouped into 123 named spots ("Wellman Hall", "Silo") so you pick a place, not a pole
+- **Turn-by-turn directions** that follow you as you walk or ride, reroute when you wander, and end with one tap (or Esc, or swiping back)
+- **Phone:** an animated intro, then a map-first, one-thumb flow with a bottom sheet
+- **Desktop:** a GIS-style full-screen map: drop a pin anywhere (or right-click) and watch it scan for the closest spots; basemap switcher, an individual-racks layer, live coordinates
+- Individual racks are still there, one tap deeper, for when you care which one
+- Bike/walk toggle that remembers your choice
+
+## 🗺️ The data
+
+`src/bike-rack.js` is the raw UC Davis rack inventory and stays untouched. `npm run zones` turns it into `src/data/zones.js`:
+
+1. **Clean**: drops entries with 0 spaces (54 of them, all one block of "Other" racks) and the one marked *Removed*.
+2. **Cluster**: complete-linkage clustering capped at a 140 m diameter, so every rack in a spot is within ~2 minutes' walk of every other and one travel time is honest for the whole spot.
+3. **Name**: each spot is named after the most recognizable nearby campus building from OpenStreetMap (cached in `scripts/campus-buildings.json`; `npm run zones -- --fetch` refreshes it).
+
+Heads-up: the inventory has exactly 1,000 rows (`p1`–`p1000`), which smells like an export capped at 1,000 records. If the source has more racks, re-export and rerun `npm run zones`.
 
 ## 🧠 Lessons Learned
 
@@ -57,10 +68,13 @@ npm install
 
 # Run it
 npm run dev
+
+# Test turn-by-turn at your desk: a fake rider walks the route (value = speed multiplier)
+open "http://localhost:5173/?sim=4"
+```
 🔮 Future Features
 Show bike rack availability (one day... when I make friends with IoT sensors)
 
-Routed distances instead of straight-line (if a routing API is ever worth it)
 
 Favorite rack saving (for creatures of habit)
 
